@@ -1,25 +1,35 @@
-import logo from './logo.svg';
 import './App.css';
+import {Component} from "react";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            item_id: 0,
+            q: 0
+        }
+    }
+
+    componentDidMount() {
+        fetch('http://127.0.0.1:8000/items/1?q=1')
+            .then(response => response.json())
+            .then(response => this.setState({
+                item_id: response.item_id,
+                q: response.q
+            }))
+
+    }
+
+    render() {
+        return (
+            <div className="shopping-list">
+                <h1>Shopping List for {this.props.name}</h1>
+                 <ul>
+                    <li>{this.state.item_id} - {this.state.q}</li>
+                 </ul>
+            </div>
+        );
+    }
 }
 
 export default App;

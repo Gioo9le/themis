@@ -1,3 +1,4 @@
+import random
 from typing import Optional
 
 from fastapi import FastAPI
@@ -27,3 +28,7 @@ def read_root():
 @app.get("/items/{item_id}")
 def read_item(item_id: int, q: Optional[int] = None):
     return {"item_id": item_id, "q": q}
+
+@app.get("/random")
+def get_random():
+    return {"rnd": random.randint(0, 10)}
